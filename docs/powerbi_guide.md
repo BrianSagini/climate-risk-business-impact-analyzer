@@ -42,6 +42,15 @@ bugs**, both now fixed and confirmed by re-render:
    of red. Confirmed correct via Desktop's own save after setting the color through Format →
    Callout value → Color: cards use `objects.labels[0].properties.color`, not `dataPoint`.
 
+**Round 5 (this one)**: tightened every page's layout to a dense 16px-margin/14px-gutter grid
+(visuals resized to fill their row/column instead of stopping short), and fixed the canvas
+background — round 3's `visualStyles.*.*.outspace` tint turned out not to be the property that
+actually colors the page canvas; Desktop's own theme customizer confirmed the real property is
+`visualStyles.page.*.background`, now set to `#D6E4F0`. Both changes reopened and confirmed
+rendering correctly across all 4 pages (see [Visual inventory](#visual-inventory) for the density
+numbers and [Design system](#design-system--now-actually-applied-not-just-documented) for the
+background-property finding).
+
 ## Data connectivity
 
 - Get Data → Database → PostgreSQL database
@@ -75,60 +84,63 @@ Text `#1A1A2E`, Segoe UI. Accents: primary navy `#1B3A5C`, secondary teal `#2E8B
 blue `#3B82C4`, warning amber `#E8A33D`, critical red `#C0392B`. Bar/line charts only, no pie/3D/
 gauge (no map either — see Status above).
 
-**Background — three options considered, one picked**: (a) the originally-documented near-white
-`#F7F8FA` for the whole canvas — safe but reads as barely different from Power BI's own default,
-which was the actual complaint being fixed here; (b) a dark navy canvas with light "floating"
-cards — high-contrast and clearly branded, but risks visually competing with navy as an *accent*
-color used inside the charts themselves, and read as heavy for an 4-page, data-dense report;
-(c) a light canvas **tinted** toward the primary color (`#EEF3F7`, a pale blue-gray, not neutral
-gray) with white visual containers on top. **Picked (c)**: it's visibly not the generic default
-the moment the report opens, doesn't compete with in-chart accent colors, and stays readable/
-professional for a dense multi-visual page. Implemented as `visualStyles.*.*.outspace` (canvas)
-= `#EEF3F7` vs. each visual's own `background` = white, in `ClimateRiskTheme.json`.
+**Background — Desktop-confirmed canvas tint**: a pale blue-gray canvas (`#D6E4F0`) behind white
+visual containers, so panels read as distinct cards against a visibly-branded (not default-white)
+canvas. The property that actually controls this is `visualStyles.page.*.background` in
+`ClimateRiskTheme.json` — **not** `visualStyles.*.*.outspace`, which an earlier round wrongly
+assumed controlled the canvas and which Desktop's own theme customizer confirmed does something
+else (verified by setting the color live through View → Customize current theme → Page → Canvas
+background, saving, and reading back the JSON Desktop wrote). `outspace` is left in place at the
+same tint as a harmless no-op; `page.*.background` is the real fix.
 
-**Per-visual accent colors** (via each chart's `dataPoint.defaultColor` — only used on
+**Per-visual accent colors**: charts use each chart's `dataPoint.defaultColor` — only on
 single-measure charts, per Microsoft's own caution against flattening a multi-series chart to one
-color): Risk Score by Location → critical red (high risk = danger). Extreme Heat Days by Location
-→ warning amber. Estimated Financial Impact by Location → critical red (financial risk). Total
-Precipitation by Month → secondary teal. High-Risk Locations and Total Estimated Impact cards →
-critical red. Everything else (2-series charts, tables, the location slicer) is theme-driven —
-the theme's own `dataColors` sequence, not left uncolored.
+color. Cards use `objects.labels[0].properties.color`, **not** `dataPoint` — Desktop silently
+drops `dataPoint` from a card visual as invalid on load (confirmed the same way as the background
+fix, above), which is why some cards previously rendered in plain theme-default text despite a
+color being "set" in the file. Risk Score by Location → critical red (high risk = danger).
+Extreme Heat Days by Location → warning amber. Estimated Financial Impact by Location → critical
+red (financial risk). Total Precipitation by Month → secondary teal. High-Risk Locations and
+Total Estimated Impact cards → critical red. Everything else (2-series charts, tables, the
+location slicer) is theme-driven — the theme's own `dataColors` sequence, not left uncolored.
 
 **Header/footer**: every page gets a header text box (report name — page name, then a
 data-source line) and a footer text box (source + methodology pointer), both theme-colored, both
-real `textbox` visual objects (not decorative — see inventory below).
+real `textbox` visual objects.
+
+**Layout**: a standard dense grid — 16px canvas margin, 14px gutter between visuals, visuals
+resized to fill their row/column exactly rather than stopping short and leaving a dead margin.
+Before this pass, pages covered roughly 78–83% of the canvas by visual area, with a highly visible
+gap along the right/bottom edges; after, 87–88%, with the header/footer/cards/charts reading as
+one continuous grid rather than islands of content in a sea of margin.
 
 ## Visual inventory
 
-Every visual below is a real object in `powerbi/ClimateRisk.Report/definition/pages/*/visuals/`,
-generated by `scripts/gen_visuals.py`-equivalent tooling and listed here from the actual generated
-files, not from a plan.
+Every visual below is a real object in `powerbi/ClimateRisk.Report/definition/pages/*/visuals/`.
 
 **Page 1 — Executive Overview**
 - Total Business Exposure — Card — `Locations[Total Business Exposure]` — headline exposure KPI
 - Avg Risk Score — Card — `Locations[Avg Risk Score]`
 - High-Risk Locations — Card — `Locations[High Risk Location Count]`
 - Total Estimated Impact — Card — `FinancialImpact[Total Estimated Impact]`
-- Risk Score by Location — Clustered column chart — Category `Locations[name]`, Y `Locations[latest_risk_score]`
+- Risk Score by Location — Clustered column chart — Category `Locations[name]`, Y `Locations[latest_risk_score]` (Average aggregation)
 
 **Page 2 — Climate Trends**
-- Avg Temperature Max/Min by Month — Line chart — Category `ClimateTrends[month]`, Y `ClimateTrends[avg_temp_max_c]`, `ClimateTrends[avg_temp_min_c]`
-- Total Precipitation by Month — Line chart — Category `ClimateTrends[month]`, Y `ClimateTrends[total_precipitation_mm]`
+- Avg Temperature Max/Min by Month — Line chart — Category `ClimateTrends[month]`, Y `ClimateTrends[Avg Temp Max (C)]`, `ClimateTrends[Avg Temp Min (C)]`
+- Total Precipitation by Month — Line chart — Category `ClimateTrends[month]`, Y `ClimateTrends[Total Precipitation (mm)]`
 - Location — Slicer — `Locations[name]`
 
 **Page 3 — Risk & Business Impact**
-- Extreme Heat Days by Location — Clustered column chart — Category `Locations[name]`, Y `Locations[extreme_heat_days]`
-- Estimated Financial Impact by Location — Clustered column chart — Category `FinancialImpact[name]`, Y `FinancialImpact[estimated_impact_usd]`
-- Geographic Risk Distribution — Map (bubble) — Category `Locations[name]`, Latitude `Locations[lat]`, Longitude `Locations[lon]`, Size `Locations[latest_risk_score]`
+- Extreme Heat Days by Location — Clustered column chart — Category `Locations[name]`, Y `Locations[extreme_heat_days]` (Sum aggregation)
+- Estimated Financial Impact by Location — Clustered column chart — Category `FinancialImpact[name]`, Y `FinancialImpact[Total Estimated Impact]`
+- Geographic Risk Detail — Table — `Locations[name]`, `[lat]`, `[lon]`, `[latest_risk_score]` (a table, not a map — see Status above)
 - Risk Detail by Location — Table — `Locations[name]`, `[latest_risk_score]`, `[extreme_heat_days]`, `[heavy_precip_days]`
 
 **Page 4 — Detailed Analysis**
 - Location Detail — Table — `Locations[name]`, `[industry]`, `[latest_risk_score]`, `[asset_value_usd]`, `[moderate_scenario_impact_usd]`
 - Monthly Climate Detail — Table — `ClimateTrends[location_id]`, `[month]`, `[avg_temp_max_c]`, `[avg_temp_min_c]`, `[total_precipitation_mm]`
 
-**Total: 14 visuals across 4 pages.** No text boxes or conditional-formatting rules were added
-(both would need additional JSON this session couldn't verify renders correctly — safer to leave
-for a person to add in the UI, which is fast, than to guess at more schema).
+**Total: 22 visuals across 4 pages** (14 data visuals + a header and footer text box per page).
 
 ## Power BI Service publication: BLOCKED
 
