@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "437855dd-e17b-45f3-a298-9f7056ccbf11",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "5730cf09-7e97-4cc9-a734-25b878e78f41",
   "position": {
-    "x": 640,
+    "x": 20,
     "y": 60,
     "z": 0,
-    "width": 620,
-    "height": 240,
+    "width": 600,
+    "height": 300,
     "tabOrder": 0
   },
   "visual": {
@@ -20,14 +20,15 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FinancialImpact"
+                      "Entity": "Locations"
                     }
                   },
                   "Property": "name"
                 }
               },
-              "queryRef": "FinancialImpact.name",
-              "nativeQueryRef": "name"
+              "queryRef": "Locations.name",
+              "nativeQueryRef": "name",
+              "active": true
             }
           ]
         },
@@ -38,27 +39,55 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FinancialImpact"
+                      "Entity": "Locations"
                     }
                   },
-                  "Property": "estimated_impact_usd"
+                  "Property": "extreme_heat_days"
                 }
               },
-              "queryRef": "FinancialImpact.estimated_impact_usd",
-              "nativeQueryRef": "estimated_impact_usd"
+              "queryRef": "Locations.extreme_heat_days",
+              "nativeQueryRef": "extreme_heat_days"
             }
           ]
         }
       }
     },
     "objects": {
+      "categoryAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Estimated Financial Impact by Location'"
+                  "Value": "'Extreme Heat Days by Location'"
                 }
               }
             },

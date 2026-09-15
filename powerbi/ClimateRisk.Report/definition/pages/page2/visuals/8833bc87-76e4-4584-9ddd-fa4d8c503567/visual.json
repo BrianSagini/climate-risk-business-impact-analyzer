@@ -1,19 +1,19 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "03c65b47-69c6-4d7d-a5fe-021243c4ff14",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "8833bc87-76e4-4584-9ddd-fa4d8c503567",
   "position": {
-    "x": 20,
-    "y": 200,
+    "x": 660,
+    "y": 380,
     "z": 0,
-    "width": 1240,
-    "height": 480,
+    "width": 600,
+    "height": 300,
     "tabOrder": 0
   },
   "visual": {
-    "visualType": "clusteredColumnChart",
+    "visualType": "tableEx",
     "query": {
       "queryState": {
-        "Category": {
+        "Values": {
           "projections": [
             {
               "field": {
@@ -28,11 +28,7 @@
               },
               "queryRef": "Locations.name",
               "nativeQueryRef": "name"
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
+            },
             {
               "field": {
                 "Column": {
@@ -46,19 +42,47 @@
               },
               "queryRef": "Locations.latest_risk_score",
               "nativeQueryRef": "latest_risk_score"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Locations"
+                    }
+                  },
+                  "Property": "extreme_heat_days"
+                }
+              },
+              "queryRef": "Locations.extreme_heat_days",
+              "nativeQueryRef": "extreme_heat_days"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Locations"
+                    }
+                  },
+                  "Property": "heavy_precip_days"
+                }
+              },
+              "queryRef": "Locations.heavy_precip_days",
+              "nativeQueryRef": "heavy_precip_days"
             }
           ]
         }
       }
     },
-    "objects": {
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Risk Score by Location'"
+                  "Value": "'Risk Detail by Location'"
                 }
               }
             },

@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "71be088f-6e56-48fa-aeb1-65e4082c9baf",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "1bf7fc2e-9f76-4cf7-aff3-718e4aa68f10",
   "position": {
-    "x": 640,
-    "y": 320,
+    "x": 20,
+    "y": 60,
     "z": 0,
-    "width": 620,
-    "height": 360,
+    "width": 1240,
+    "height": 300,
     "tabOrder": 0
   },
   "visual": {
@@ -37,6 +37,20 @@
                       "Entity": "Locations"
                     }
                   },
+                  "Property": "industry"
+                }
+              },
+              "queryRef": "Locations.industry",
+              "nativeQueryRef": "industry"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Locations"
+                    }
+                  },
                   "Property": "latest_risk_score"
                 }
               },
@@ -51,11 +65,11 @@
                       "Entity": "Locations"
                     }
                   },
-                  "Property": "extreme_heat_days"
+                  "Property": "asset_value_usd"
                 }
               },
-              "queryRef": "Locations.extreme_heat_days",
-              "nativeQueryRef": "extreme_heat_days"
+              "queryRef": "Locations.asset_value_usd",
+              "nativeQueryRef": "asset_value_usd"
             },
             {
               "field": {
@@ -65,24 +79,24 @@
                       "Entity": "Locations"
                     }
                   },
-                  "Property": "heavy_precip_days"
+                  "Property": "moderate_scenario_impact_usd"
                 }
               },
-              "queryRef": "Locations.heavy_precip_days",
-              "nativeQueryRef": "heavy_precip_days"
+              "queryRef": "Locations.moderate_scenario_impact_usd",
+              "nativeQueryRef": "moderate_scenario_impact_usd"
             }
           ]
         }
       }
     },
-    "objects": {
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Risk Detail by Location'"
+                  "Value": "'Location Detail'"
                 }
               }
             },

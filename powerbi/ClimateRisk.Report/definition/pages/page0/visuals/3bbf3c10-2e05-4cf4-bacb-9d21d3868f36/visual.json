@@ -1,8 +1,8 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "5da1e436-edb1-45ab-aeea-6f309927a658",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "3bbf3c10-2e05-4cf4-bacb-9d21d3868f36",
   "position": {
-    "x": 20,
+    "x": 500,
     "y": 60,
     "z": 0,
     "width": 220,
@@ -23,24 +23,24 @@
                       "Entity": "Locations"
                     }
                   },
-                  "Property": "Total Business Exposure"
+                  "Property": "High Risk Location Count"
                 }
               },
-              "queryRef": "Locations.Total Business Exposure",
-              "nativeQueryRef": "Total Business Exposure"
+              "queryRef": "Locations.High Risk Location Count",
+              "nativeQueryRef": "High Risk Location Count"
             }
           ]
         }
       }
     },
-    "objects": {
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Total Business Exposure'"
+                  "Value": "'High-Risk Locations'"
                 }
               }
             },

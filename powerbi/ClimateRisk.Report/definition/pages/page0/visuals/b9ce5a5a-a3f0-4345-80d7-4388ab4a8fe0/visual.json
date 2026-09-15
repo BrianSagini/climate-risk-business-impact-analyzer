@@ -1,16 +1,16 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "dde32038-5b2d-4ccb-a5b9-75b4a6954a19",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "b9ce5a5a-a3f0-4345-80d7-4388ab4a8fe0",
   "position": {
     "x": 20,
-    "y": 320,
+    "y": 200,
     "z": 0,
-    "width": 600,
-    "height": 360,
+    "width": 1240,
+    "height": 480,
     "tabOrder": 0
   },
   "visual": {
-    "visualType": "map",
+    "visualType": "clusteredColumnChart",
     "query": {
       "queryState": {
         "Category": {
@@ -27,47 +27,12 @@
                 }
               },
               "queryRef": "Locations.name",
-              "nativeQueryRef": "name"
+              "nativeQueryRef": "name",
+              "active": true
             }
           ]
         },
-        "Latitude": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Locations"
-                    }
-                  },
-                  "Property": "lat"
-                }
-              },
-              "queryRef": "Locations.lat",
-              "nativeQueryRef": "lat"
-            }
-          ]
-        },
-        "Longitude": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Locations"
-                    }
-                  },
-                  "Property": "lon"
-                }
-              },
-              "queryRef": "Locations.lon",
-              "nativeQueryRef": "lon"
-            }
-          ]
-        },
-        "Size": {
+        "Y": {
           "projections": [
             {
               "field": {
@@ -88,13 +53,41 @@
       }
     },
     "objects": {
+      "categoryAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Geographic Risk Distribution'"
+                  "Value": "'Risk Score by Location'"
                 }
               }
             },

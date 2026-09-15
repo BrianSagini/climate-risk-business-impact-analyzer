@@ -1,9 +1,9 @@
 table Locations
-	lineageTag: 35453df8-ce42-4c31-9792-84dbfa5cdb18
+	lineageTag: 860c5d80-1b18-487f-8f73-362ce384276e
 
 	column location_id
 		dataType: string
-		lineageTag: 6e971b86-d9aa-4d02-93fd-b433b7e32b2b
+		lineageTag: 2bc1b817-d6b9-4a05-a518-d1be7bafb5f9
 		summarizeBy: none
 		sourceColumn: location_id
 
@@ -11,7 +11,7 @@ table Locations
 
 	column name
 		dataType: string
-		lineageTag: 16c838af-3969-4d4c-a292-f59d917980b3
+		lineageTag: e92e2d25-6311-4539-8e73-734a7073fe6b
 		summarizeBy: none
 		sourceColumn: name
 
@@ -19,7 +19,7 @@ table Locations
 
 	column lat
 		dataType: double
-		lineageTag: 9e9df466-8c78-4805-b6dd-0fa3858db8ae
+		lineageTag: 724a7eda-a89e-42eb-9b1f-576e6c2ae08e
 		summarizeBy: none
 		sourceColumn: lat
 
@@ -27,7 +27,7 @@ table Locations
 
 	column lon
 		dataType: double
-		lineageTag: 9056ca91-966f-48b8-bfd2-fde4404940df
+		lineageTag: cecf1b33-7e7e-470b-9ca3-5984e91f3f47
 		summarizeBy: none
 		sourceColumn: lon
 
@@ -35,7 +35,7 @@ table Locations
 
 	column industry
 		dataType: string
-		lineageTag: dd4071b3-c6a6-406b-adc9-4892d1f6557d
+		lineageTag: 9254d078-a5be-422e-982d-4608baf188f4
 		summarizeBy: none
 		sourceColumn: industry
 
@@ -43,25 +43,25 @@ table Locations
 
 	column annual_revenue_usd
 		dataType: decimal
-		lineageTag: 5e14114f-b5ae-407b-b2fb-70d2ecb02388
+		lineageTag: 586987c2-865d-4372-9345-7afed3d19731
 		summarizeBy: none
-		formatString: "\$"#,0
+		formatString: "$"#,0
 		sourceColumn: annual_revenue_usd
 
 		annotation SummarizationSetBy = Automatic
 
 	column asset_value_usd
 		dataType: decimal
-		lineageTag: 8fb91948-8060-4c37-aca2-67dc2e852113
+		lineageTag: 009bac3c-3b2e-416e-8f99-3b63d9839f5c
 		summarizeBy: none
-		formatString: "\$"#,0
+		formatString: "$"#,0
 		sourceColumn: asset_value_usd
 
 		annotation SummarizationSetBy = Automatic
 
 	column is_synthetic_business_data
 		dataType: boolean
-		lineageTag: cc5171a5-6f42-4577-be6f-02a36bd6e38c
+		lineageTag: 3d166168-394d-4734-a62a-54afe96c9c0f
 		summarizeBy: none
 		sourceColumn: is_synthetic_business_data
 
@@ -69,7 +69,7 @@ table Locations
 
 	column latest_year
 		dataType: int64
-		lineageTag: 988ee019-8b0f-42c3-a09c-77e8e315caca
+		lineageTag: db530469-b4d7-4d20-99fe-d592647a2533
 		summarizeBy: none
 		formatString: 0
 		sourceColumn: latest_year
@@ -78,7 +78,7 @@ table Locations
 
 	column latest_risk_score
 		dataType: double
-		lineageTag: e0797988-b8d3-4135-97bf-8fc60e6b796b
+		lineageTag: d46b7b51-f6a8-4cf4-8627-af682566b6d9
 		summarizeBy: none
 		formatString: 0.0
 		sourceColumn: latest_risk_score
@@ -87,7 +87,7 @@ table Locations
 
 	column extreme_heat_days
 		dataType: int64
-		lineageTag: b12baf99-c841-4661-bb6b-5ec7816f688e
+		lineageTag: 616bacf9-4b5f-4741-826c-7191b0246078
 		summarizeBy: none
 		formatString: 0
 		sourceColumn: extreme_heat_days
@@ -96,7 +96,7 @@ table Locations
 
 	column heavy_precip_days
 		dataType: int64
-		lineageTag: 5d370e09-69bb-461f-b2a3-7d959a2b7570
+		lineageTag: 9e46655d-abad-477c-8b83-33ddf7d284ef
 		summarizeBy: none
 		formatString: 0
 		sourceColumn: heavy_precip_days
@@ -105,7 +105,7 @@ table Locations
 
 	column temp_anomaly_c
 		dataType: double
-		lineageTag: 0803a11a-b699-4671-9ac8-df58d09c264b
+		lineageTag: 908b4b60-daae-43c2-8ff1-3808d7be64bb
 		summarizeBy: none
 		formatString: 0.0
 		sourceColumn: temp_anomaly_c
@@ -114,24 +114,24 @@ table Locations
 
 	column moderate_scenario_impact_usd
 		dataType: decimal
-		lineageTag: 4f2b89c9-ac39-4550-b966-01581d3d7e35
+		lineageTag: e7cb3c71-b474-41bd-a294-47c2d922b122
 		summarizeBy: none
-		formatString: "\$"#,0
+		formatString: "$"#,0
 		sourceColumn: moderate_scenario_impact_usd
 
 		annotation SummarizationSetBy = Automatic
 
 	measure 'Total Business Exposure' = SUM(Locations[asset_value_usd])
-		formatString: "\$"#,0
-		lineageTag: 02be534e-9a89-4af8-8f73-5f6a9acc4043
+		formatString: "$"#,0
+		lineageTag: 992379cb-e458-4513-977a-108d47189c09
 
 	measure 'Avg Risk Score' = AVERAGE(Locations[latest_risk_score])
 		formatString: 0.0
-		lineageTag: 33f92913-05be-4d5c-aaed-11d42a24c706
+		lineageTag: f896cec9-c627-4447-b69a-0ce3677d2257
 
 	measure 'High Risk Location Count' = COUNTROWS(FILTER(Locations, Locations[latest_risk_score] >= 60))
 		formatString: 0
-		lineageTag: 5e47bc33-dcef-4679-8145-caf4e4002388
+		lineageTag: 71e2f0a7-63fc-462d-a36b-ef0982361595
 
 	partition Locations = m
 		mode: import

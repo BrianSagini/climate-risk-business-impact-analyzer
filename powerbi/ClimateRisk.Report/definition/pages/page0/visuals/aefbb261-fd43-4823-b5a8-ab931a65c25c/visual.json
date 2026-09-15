@@ -1,8 +1,8 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "35928c36-6934-405b-8e75-071bc44ee8bc",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "aefbb261-fd43-4823-b5a8-ab931a65c25c",
   "position": {
-    "x": 740,
+    "x": 20,
     "y": 60,
     "z": 0,
     "width": 220,
@@ -20,27 +20,27 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FinancialImpact"
+                      "Entity": "Locations"
                     }
                   },
-                  "Property": "Total Estimated Impact"
+                  "Property": "Total Business Exposure"
                 }
               },
-              "queryRef": "FinancialImpact.Total Estimated Impact",
-              "nativeQueryRef": "Total Estimated Impact"
+              "queryRef": "Locations.Total Business Exposure",
+              "nativeQueryRef": "Total Business Exposure"
             }
           ]
         }
       }
     },
-    "objects": {
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Total Estimated Impact'"
+                  "Value": "'Total Business Exposure'"
                 }
               }
             },

@@ -1,11 +1,11 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "1b0b74db-e6ae-429a-99aa-5b545e83d640",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "33fdcad7-e443-44ef-9125-a9ccae4db742",
   "position": {
     "x": 20,
-    "y": 60,
+    "y": 380,
     "z": 0,
-    "width": 1240,
+    "width": 600,
     "height": 300,
     "tabOrder": 0
   },
@@ -37,11 +37,25 @@
                       "Entity": "Locations"
                     }
                   },
-                  "Property": "industry"
+                  "Property": "lat"
                 }
               },
-              "queryRef": "Locations.industry",
-              "nativeQueryRef": "industry"
+              "queryRef": "Locations.lat",
+              "nativeQueryRef": "lat"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Locations"
+                    }
+                  },
+                  "Property": "lon"
+                }
+              },
+              "queryRef": "Locations.lon",
+              "nativeQueryRef": "lon"
             },
             {
               "field": {
@@ -56,47 +70,19 @@
               },
               "queryRef": "Locations.latest_risk_score",
               "nativeQueryRef": "latest_risk_score"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Locations"
-                    }
-                  },
-                  "Property": "asset_value_usd"
-                }
-              },
-              "queryRef": "Locations.asset_value_usd",
-              "nativeQueryRef": "asset_value_usd"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Locations"
-                    }
-                  },
-                  "Property": "moderate_scenario_impact_usd"
-                }
-              },
-              "queryRef": "Locations.moderate_scenario_impact_usd",
-              "nativeQueryRef": "moderate_scenario_impact_usd"
             }
           ]
         }
       }
     },
-    "objects": {
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Location Detail'"
+                  "Value": "'Geographic Risk Detail'"
                 }
               }
             },

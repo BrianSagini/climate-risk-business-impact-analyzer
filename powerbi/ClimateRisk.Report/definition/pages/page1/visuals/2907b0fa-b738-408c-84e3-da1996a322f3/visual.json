@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "78b911c0-0284-49ca-8a10-1732fd9737ed",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "2907b0fa-b738-408c-84e3-da1996a322f3",
   "position": {
     "x": 20,
-    "y": 60,
+    "y": 380,
     "z": 0,
     "width": 1000,
-    "height": 300,
+    "height": 280,
     "tabOrder": 0
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "ClimateTrends.month",
-              "nativeQueryRef": "month"
+              "nativeQueryRef": "month",
+              "active": true
             }
           ]
         },
@@ -41,38 +42,52 @@
                       "Entity": "ClimateTrends"
                     }
                   },
-                  "Property": "avg_temp_max_c"
+                  "Property": "total_precipitation_mm"
                 }
               },
-              "queryRef": "ClimateTrends.avg_temp_max_c",
-              "nativeQueryRef": "avg_temp_max_c"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "ClimateTrends"
-                    }
-                  },
-                  "Property": "avg_temp_min_c"
-                }
-              },
-              "queryRef": "ClimateTrends.avg_temp_min_c",
-              "nativeQueryRef": "avg_temp_min_c"
+              "queryRef": "ClimateTrends.total_precipitation_mm",
+              "nativeQueryRef": "total_precipitation_mm"
             }
           ]
         }
       }
     },
     "objects": {
+      "categoryAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
       "title": [
         {
           "properties": {
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Avg Temperature Max/Min by Month'"
+                  "Value": "'Total Precipitation by Month'"
                 }
               }
             },

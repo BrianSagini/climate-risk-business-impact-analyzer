@@ -1,9 +1,9 @@
 table FinancialImpact
-	lineageTag: 796461dd-3a56-4426-92a3-8db26628e886
+	lineageTag: c6b304ce-0b3a-43a8-a002-9050bb4726fe
 
 	column location_id
 		dataType: string
-		lineageTag: 31a6f23b-fcea-43d8-a2a2-7aed495c10eb
+		lineageTag: ee2a4497-78bd-4281-a23d-e57a849ba7b1
 		summarizeBy: none
 		sourceColumn: location_id
 
@@ -11,7 +11,7 @@ table FinancialImpact
 
 	column name
 		dataType: string
-		lineageTag: f5482d90-b6c9-4dcf-9707-7cd90d4fa2ac
+		lineageTag: 6152ef62-8faf-421f-b724-3db9b821f980
 		summarizeBy: none
 		sourceColumn: name
 
@@ -19,7 +19,7 @@ table FinancialImpact
 
 	column industry
 		dataType: string
-		lineageTag: b3c25b58-4ff3-475a-8a7c-01762096bbd4
+		lineageTag: 8ae946c9-6978-40fa-89c4-adee4b1d64be
 		summarizeBy: none
 		sourceColumn: industry
 
@@ -27,7 +27,7 @@ table FinancialImpact
 
 	column year
 		dataType: int64
-		lineageTag: 0379d73e-70e4-44d8-a210-d4eef491f481
+		lineageTag: 2fbae488-52da-4569-8935-8ed6f87fe3aa
 		summarizeBy: none
 		formatString: 0
 		sourceColumn: year
@@ -36,7 +36,7 @@ table FinancialImpact
 
 	column scenario
 		dataType: string
-		lineageTag: 537ade77-f940-488d-973f-097b2ddec1e6
+		lineageTag: 5cfd02fa-8540-46a3-a7fb-26955133b658
 		summarizeBy: none
 		sourceColumn: scenario
 
@@ -44,16 +44,16 @@ table FinancialImpact
 
 	column estimated_impact_usd
 		dataType: decimal
-		lineageTag: c9369a6c-3007-40c4-bfbe-ece0782e6008
+		lineageTag: 10496b87-803e-4b89-b580-74cef78f878d
 		summarizeBy: none
-		formatString: "\$"#,0
+		formatString: "$"#,0
 		sourceColumn: estimated_impact_usd
 
 		annotation SummarizationSetBy = Automatic
 
 	column pct_of_asset_value
 		dataType: double
-		lineageTag: edd9dae3-0fa5-4b6f-a8b0-454f80c67be9
+		lineageTag: d8916237-bebc-4970-adc4-e5e2902880e5
 		summarizeBy: none
 		formatString: 0.0000
 		sourceColumn: pct_of_asset_value
@@ -61,8 +61,8 @@ table FinancialImpact
 		annotation SummarizationSetBy = Automatic
 
 	measure 'Total Estimated Impact' = SUM(FinancialImpact[estimated_impact_usd])
-		formatString: "\$"#,0
-		lineageTag: 9bc251b8-04d0-4b7e-a7ca-40a760ed3d04
+		formatString: "$"#,0
+		lineageTag: 6b295706-da0b-4147-8ca7-3b65fe731e25
 
 	partition FinancialImpact = m
 		mode: import
