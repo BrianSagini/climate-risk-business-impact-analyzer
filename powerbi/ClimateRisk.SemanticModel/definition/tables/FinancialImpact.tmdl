@@ -1,9 +1,9 @@
 table FinancialImpact
-	lineageTag: c6b304ce-0b3a-43a8-a002-9050bb4726fe
+	lineageTag: a870fe57-550d-48c8-8ec5-9ddf455cfbe9
 
 	column location_id
 		dataType: string
-		lineageTag: ee2a4497-78bd-4281-a23d-e57a849ba7b1
+		lineageTag: d7a6ba5b-789e-4d69-9871-b3d9e9804fb6
 		summarizeBy: none
 		sourceColumn: location_id
 
@@ -11,7 +11,7 @@ table FinancialImpact
 
 	column name
 		dataType: string
-		lineageTag: 6152ef62-8faf-421f-b724-3db9b821f980
+		lineageTag: 634879ac-44ea-446b-b86e-6c26f8875025
 		summarizeBy: none
 		sourceColumn: name
 
@@ -19,7 +19,7 @@ table FinancialImpact
 
 	column industry
 		dataType: string
-		lineageTag: 8ae946c9-6978-40fa-89c4-adee4b1d64be
+		lineageTag: c047015c-9331-4d03-8a2c-8c214a7c69a4
 		summarizeBy: none
 		sourceColumn: industry
 
@@ -27,7 +27,7 @@ table FinancialImpact
 
 	column year
 		dataType: int64
-		lineageTag: 2fbae488-52da-4569-8935-8ed6f87fe3aa
+		lineageTag: f055f1ce-3060-45ac-a17b-ca7708fb6b65
 		summarizeBy: none
 		formatString: 0
 		sourceColumn: year
@@ -36,7 +36,7 @@ table FinancialImpact
 
 	column scenario
 		dataType: string
-		lineageTag: 5cfd02fa-8540-46a3-a7fb-26955133b658
+		lineageTag: 534c6c10-a1a5-42a7-a921-9cc77791515b
 		summarizeBy: none
 		sourceColumn: scenario
 
@@ -44,7 +44,7 @@ table FinancialImpact
 
 	column estimated_impact_usd
 		dataType: decimal
-		lineageTag: 10496b87-803e-4b89-b580-74cef78f878d
+		lineageTag: df8771b0-e766-4fae-9c21-f3e7288e3b0e
 		summarizeBy: none
 		formatString: "$"#,0
 		sourceColumn: estimated_impact_usd
@@ -53,7 +53,7 @@ table FinancialImpact
 
 	column pct_of_asset_value
 		dataType: double
-		lineageTag: d8916237-bebc-4970-adc4-e5e2902880e5
+		lineageTag: 2e47a430-31fa-47c0-91b4-69b3c1f51122
 		summarizeBy: none
 		formatString: 0.0000
 		sourceColumn: pct_of_asset_value
@@ -62,7 +62,7 @@ table FinancialImpact
 
 	measure 'Total Estimated Impact' = SUM(FinancialImpact[estimated_impact_usd])
 		formatString: "$"#,0
-		lineageTag: 6b295706-da0b-4147-8ca7-3b65fe731e25
+		lineageTag: d707c024-a3c4-4e8c-8657-e88b4d9483ff
 
 	partition FinancialImpact = m
 		mode: import

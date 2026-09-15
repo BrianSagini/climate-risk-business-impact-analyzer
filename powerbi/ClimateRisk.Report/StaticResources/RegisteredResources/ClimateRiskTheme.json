@@ -1,0 +1,68 @@
+{
+  "name": "ClimateRiskTheme",
+  "dataColors": [
+    "#1B3A5C",
+    "#2E8B99",
+    "#3B82C4",
+    "#7C93B0",
+    "#E8A33D",
+    "#C0392B",
+    "#94A3B8",
+    "#0F2A45"
+  ],
+  "good": "#2E9E5B",
+  "neutral": "#94A3B8",
+  "bad": "#C0392B",
+  "foreground": "#1A1A2E",
+  "background": "#FFFFFF",
+  "tableAccent": "#1B3A5C",
+  "textClasses": {
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#1A1A2E"
+    },
+    "title": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1A1A2E"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1B3A5C"
+    },
+    "callout": {
+      "fontSize": 32,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#1B3A5C"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#EEF3F7"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    }
+  }
+}

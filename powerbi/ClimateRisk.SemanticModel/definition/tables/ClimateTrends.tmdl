@@ -1,9 +1,9 @@
 table ClimateTrends
-	lineageTag: 76f1e208-f1c7-49ee-9df3-86bfc98cd3a8
+	lineageTag: 3cd94153-7d0e-4554-a7d5-6cb6b7c4b132
 
 	column location_id
 		dataType: string
-		lineageTag: ec283ac2-cbb7-431a-abbe-7f5610424df0
+		lineageTag: ec6777c0-6fdf-4e8d-be49-f1c1c552752a
 		summarizeBy: none
 		sourceColumn: location_id
 
@@ -11,7 +11,7 @@ table ClimateTrends
 
 	column month
 		dataType: dateTime
-		lineageTag: bcbba41b-3b06-4f0b-8aae-0350a69fa013
+		lineageTag: 6e146767-1b3b-44fa-bfc5-f8679e0d1c48
 		summarizeBy: none
 		formatString: yyyy-MM
 		sourceColumn: month
@@ -20,7 +20,7 @@ table ClimateTrends
 
 	column avg_temp_max_c
 		dataType: double
-		lineageTag: f5071035-2fe3-4eef-955f-f53540a8e8e3
+		lineageTag: ad557785-4283-4e32-867f-b65b364199e3
 		summarizeBy: none
 		formatString: 0.0
 		sourceColumn: avg_temp_max_c
@@ -29,7 +29,7 @@ table ClimateTrends
 
 	column avg_temp_min_c
 		dataType: double
-		lineageTag: 9579c3b1-b494-4a1a-9a64-ed7710f95da4
+		lineageTag: 63dafaae-d2f2-4336-9b1f-c8562bdefae4
 		summarizeBy: none
 		formatString: 0.0
 		sourceColumn: avg_temp_min_c
@@ -38,7 +38,7 @@ table ClimateTrends
 
 	column total_precipitation_mm
 		dataType: double
-		lineageTag: 585e5767-4899-4856-8263-3b42a30dccec
+		lineageTag: b8380f4e-cb25-49ce-a60c-0c3ed24f286f
 		summarizeBy: none
 		formatString: 0.0
 		sourceColumn: total_precipitation_mm
@@ -47,7 +47,7 @@ table ClimateTrends
 
 	column max_windspeed_kmh
 		dataType: double
-		lineageTag: 0da7af78-ceb2-4f55-9718-4e6db98a6adf
+		lineageTag: db509889-0583-4f49-b7a1-9407fad1942c
 		summarizeBy: none
 		formatString: 0.0
 		sourceColumn: max_windspeed_kmh
@@ -56,19 +56,19 @@ table ClimateTrends
 
 	measure 'Avg Temp Max (C)' = AVERAGE(ClimateTrends[avg_temp_max_c])
 		formatString: 0.0
-		lineageTag: a1b1c73f-93d0-4af7-af85-c517764fa35f
+		lineageTag: 5a6b215d-6ca8-4f47-a4d8-4c06fcd5b792
 
 	measure 'Avg Temp Min (C)' = AVERAGE(ClimateTrends[avg_temp_min_c])
 		formatString: 0.0
-		lineageTag: d579576b-18e7-4209-bd3c-82869d591db3
+		lineageTag: 0f30a3b5-dc44-4e11-912a-3b953592012c
 
 	measure 'Total Precipitation (mm)' = SUM(ClimateTrends[total_precipitation_mm])
 		formatString: 0.0
-		lineageTag: 807dce68-de1c-4756-afa6-5b7de6893c18
+		lineageTag: 57b8ebb0-6c4d-4661-926f-39d22e170363
 
 	measure 'Avg Wind Speed (km/h)' = AVERAGE(ClimateTrends[max_windspeed_kmh])
 		formatString: 0.0
-		lineageTag: a3b7e90b-a39c-4ae5-95cd-91c442e69c2c
+		lineageTag: c18a8d4e-5284-4c67-8e38-1acb4e09f9a0
 
 	partition ClimateTrends = m
 		mode: import
