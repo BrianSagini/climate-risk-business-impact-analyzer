@@ -1,19 +1,19 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
-  "name": "71be088f-6e56-48fa-aeb1-65e4082c9baf",
+  "name": "dde32038-5b2d-4ccb-a5b9-75b4a6954a19",
   "position": {
-    "x": 640,
+    "x": 20,
     "y": 320,
     "z": 0,
-    "width": 620,
+    "width": 600,
     "height": 360,
     "tabOrder": 0
   },
   "visual": {
-    "visualType": "tableEx",
+    "visualType": "map",
     "query": {
       "queryState": {
-        "Values": {
+        "Category": {
           "projections": [
             {
               "field": {
@@ -28,7 +28,47 @@
               },
               "queryRef": "Locations.name",
               "nativeQueryRef": "name"
-            },
+            }
+          ]
+        },
+        "Latitude": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Locations"
+                    }
+                  },
+                  "Property": "lat"
+                }
+              },
+              "queryRef": "Locations.lat",
+              "nativeQueryRef": "lat"
+            }
+          ]
+        },
+        "Longitude": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Locations"
+                    }
+                  },
+                  "Property": "lon"
+                }
+              },
+              "queryRef": "Locations.lon",
+              "nativeQueryRef": "lon"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
             {
               "field": {
                 "Column": {
@@ -42,34 +82,6 @@
               },
               "queryRef": "Locations.latest_risk_score",
               "nativeQueryRef": "latest_risk_score"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Locations"
-                    }
-                  },
-                  "Property": "extreme_heat_days"
-                }
-              },
-              "queryRef": "Locations.extreme_heat_days",
-              "nativeQueryRef": "extreme_heat_days"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Locations"
-                    }
-                  },
-                  "Property": "heavy_precip_days"
-                }
-              },
-              "queryRef": "Locations.heavy_precip_days",
-              "nativeQueryRef": "heavy_precip_days"
             }
           ]
         }
@@ -82,7 +94,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Risk Detail by Location'"
+                  "Value": "'Geographic Risk Distribution'"
                 }
               }
             },

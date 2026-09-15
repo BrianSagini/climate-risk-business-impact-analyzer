@@ -4,7 +4,7 @@
 
 A real `.pbip` project exists at `powerbi/ClimateRisk.pbip`, generated programmatically. What's
 real and complete: 3 tables (columns checked against live `information_schema`), 2 relationships,
-all 8 DAX measures below, and **13 real visual objects across all 4 pages** (see
+all 8 DAX measures below, and **14 real visual objects across all 4 pages** (see
 [Visual inventory](#visual-inventory)) — every one binds to an actual table/column/measure that
 exists in the model, none is a placeholder or a documented-but-absent visual.
 
@@ -76,13 +76,14 @@ files, not from a plan.
 **Page 3 — Risk & Business Impact**
 - Extreme Heat Days by Location — Clustered column chart — Category `Locations[name]`, Y `Locations[extreme_heat_days]`
 - Estimated Financial Impact by Location — Clustered column chart — Category `FinancialImpact[name]`, Y `FinancialImpact[estimated_impact_usd]`
+- Geographic Risk Distribution — Map (bubble) — Category `Locations[name]`, Latitude `Locations[lat]`, Longitude `Locations[lon]`, Size `Locations[latest_risk_score]`
 - Risk Detail by Location — Table — `Locations[name]`, `[latest_risk_score]`, `[extreme_heat_days]`, `[heavy_precip_days]`
 
 **Page 4 — Detailed Analysis**
 - Location Detail — Table — `Locations[name]`, `[industry]`, `[latest_risk_score]`, `[asset_value_usd]`, `[moderate_scenario_impact_usd]`
 - Monthly Climate Detail — Table — `ClimateTrends[location_id]`, `[month]`, `[avg_temp_max_c]`, `[avg_temp_min_c]`, `[total_precipitation_mm]`
 
-**Total: 13 visuals across 4 pages.** No text boxes or conditional-formatting rules were added
+**Total: 14 visuals across 4 pages.** No text boxes or conditional-formatting rules were added
 (both would need additional JSON this session couldn't verify renders correctly — safer to leave
 for a person to add in the UI, which is fast, than to guess at more schema).
 
