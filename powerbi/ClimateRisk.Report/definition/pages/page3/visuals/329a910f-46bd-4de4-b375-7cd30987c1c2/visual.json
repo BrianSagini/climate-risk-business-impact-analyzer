@@ -1,0 +1,115 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "329a910f-46bd-4de4-b375-7cd30987c1c2",
+  "position": {
+    "x": 20,
+    "y": 380,
+    "z": 0,
+    "width": 1240,
+    "height": 280,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ClimateTrends"
+                    }
+                  },
+                  "Property": "location_id"
+                }
+              },
+              "queryRef": "ClimateTrends.location_id",
+              "nativeQueryRef": "location_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ClimateTrends"
+                    }
+                  },
+                  "Property": "month"
+                }
+              },
+              "queryRef": "ClimateTrends.month",
+              "nativeQueryRef": "month"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ClimateTrends"
+                    }
+                  },
+                  "Property": "avg_temp_max_c"
+                }
+              },
+              "queryRef": "ClimateTrends.avg_temp_max_c",
+              "nativeQueryRef": "avg_temp_max_c"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ClimateTrends"
+                    }
+                  },
+                  "Property": "avg_temp_min_c"
+                }
+              },
+              "queryRef": "ClimateTrends.avg_temp_min_c",
+              "nativeQueryRef": "avg_temp_min_c"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ClimateTrends"
+                    }
+                  },
+                  "Property": "total_precipitation_mm"
+                }
+              },
+              "queryRef": "ClimateTrends.total_precipitation_mm",
+              "nativeQueryRef": "total_precipitation_mm"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Monthly Climate Detail'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

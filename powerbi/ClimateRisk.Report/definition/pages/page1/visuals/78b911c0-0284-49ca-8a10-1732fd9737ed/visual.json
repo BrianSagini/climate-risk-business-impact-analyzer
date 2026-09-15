@@ -1,0 +1,91 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "78b911c0-0284-49ca-8a10-1732fd9737ed",
+  "position": {
+    "x": 20,
+    "y": 60,
+    "z": 0,
+    "width": 1000,
+    "height": 300,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ClimateTrends"
+                    }
+                  },
+                  "Property": "month"
+                }
+              },
+              "queryRef": "ClimateTrends.month",
+              "nativeQueryRef": "month"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ClimateTrends"
+                    }
+                  },
+                  "Property": "avg_temp_max_c"
+                }
+              },
+              "queryRef": "ClimateTrends.avg_temp_max_c",
+              "nativeQueryRef": "avg_temp_max_c"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ClimateTrends"
+                    }
+                  },
+                  "Property": "avg_temp_min_c"
+                }
+              },
+              "queryRef": "ClimateTrends.avg_temp_min_c",
+              "nativeQueryRef": "avg_temp_min_c"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Avg Temperature Max/Min by Month'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

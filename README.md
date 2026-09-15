@@ -58,10 +58,12 @@ actuarial/insurance model. Full formulas and explicit limitations: `docs/methodo
 ## Power BI
 
 A real `.pbip` project (`powerbi/ClimateRisk.pbip`) exists with the complete data model — 3
-tables, 2 relationships, 8 DAX measures, all reconciled against the SQL above — but **it has never
-been opened in Power BI Desktop, so it isn't validated.** The 4 report pages exist but have no
-visuals yet (hand-authoring visual JSON blind was judged too unreliable to fake). Open the file
-yourself to find out if it loads; if so, the model/measures are ready and only layout remains — see
+tables, 2 relationships, 8 DAX measures, all reconciled against the SQL above — **and 13 real
+visuals across all 4 pages** (cards, charts, tables, a slicer — see `docs/powerbi_guide.md`'s
+visual inventory). **Rendering is not verified**: the project's outer structure was confirmed
+openable by Power BI Desktop in one safe test, but the visual JSON itself was never opened (a
+second validation attempt captured unrelated desktop content and was stopped — see
+`docs/powerbi_guide.md` for the full account). Open it yourself to find out — see
 `docs/powerbi_guide.md` for exact page-by-page instructions, DAX, and the color system.
 
 ## Documentation

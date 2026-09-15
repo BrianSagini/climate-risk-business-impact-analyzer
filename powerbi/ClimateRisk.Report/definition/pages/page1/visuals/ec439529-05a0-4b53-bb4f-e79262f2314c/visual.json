@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "ec439529-05a0-4b53-bb4f-e79262f2314c",
+  "position": {
+    "x": 20,
+    "y": 380,
+    "z": 0,
+    "width": 1000,
+    "height": 280,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ClimateTrends"
+                    }
+                  },
+                  "Property": "month"
+                }
+              },
+              "queryRef": "ClimateTrends.month",
+              "nativeQueryRef": "month"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ClimateTrends"
+                    }
+                  },
+                  "Property": "total_precipitation_mm"
+                }
+              },
+              "queryRef": "ClimateTrends.total_precipitation_mm",
+              "nativeQueryRef": "total_precipitation_mm"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Total Precipitation by Month'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
