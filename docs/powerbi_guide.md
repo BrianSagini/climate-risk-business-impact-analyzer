@@ -10,22 +10,37 @@ into `report.json`, not just documented), and semantic accent colors on the char
 meaning (see below). Every field reference is checked against the live semantic model
 programmatically, not guessed.
 
-**Power BI Desktop validation status: PARTIALLY VERIFIED, three rounds in.** Round 1 (semantic
-model + 0 visuals): never opened. Round 2 (53 visuals added): the project owner actually opened
-this exact `.pbip` in Power BI Desktop and reported back real, specific problems — every chart
-rendered blank, titles didn't show, currency showed a literal `\$`, dates showed full weekday
-text. Diffing Power BI Desktop's own real save of that file against the prior commit (plus
-Microsoft's published PBIR schema and its `skills-for-fabric` authoring guide) found and fixed
-the actual causes: a missing `"active": true` on chart category fields, titles in the wrong JSON
-location, a stray backslash in a currency format string, a wrong date-format token, and two
-required files (`definition/version.json`, `database.tmdl`) that were missing entirely. Map
-visuals were removed outright — the user's own screenshot showed "Map and filled map visuals
-aren't enabled for your org," an account/tenant policy no file change can fix — replaced with
-equivalent data tables. Round 3 (this one: theme, header/footer, accent colors) has **not yet
-been reopened in Power BI Desktop** — everything below is structurally validated (every visual's
-field/measure references checked against the live model, no overlaps, no blank pages) but not
-yet confirmed by an actual render. If you open this file and something doesn't look right,
-that's real information — say so rather than assuming it's fine.
+**Power BI Desktop validation status: FULLY VERIFIED. All 4 pages confirmed rendering correctly
+with real data, real colors, in Power BI Desktop**, via window-scoped screenshots (see
+`docs/evidence/page1_executive_overview.png` through `page4_detailed_analysis.png`).
+
+Four rounds of real Desktop validation got here. Round 1 (semantic model + 0 visuals): never
+opened. Round 2 (53 visuals added): the project owner opened this exact `.pbip` and reported real,
+specific problems — every chart rendered blank, titles didn't show, currency showed a literal
+`\$`, dates showed full weekday text. Diffing Desktop's own save against the prior commit found
+and fixed a missing `"active": true` on chart category fields, titles in the wrong JSON location,
+a stray backslash in the currency format, a wrong date-format token, and two missing required
+files (`definition/version.json`, `database.tmdl`). Map visuals were removed outright — the
+user's own screenshot showed "Map and filled map visuals aren't enabled for your org," an
+account/tenant policy no file change can fix — replaced with equivalent data tables. Round 3
+(theme, header/footer, accent colors) was generated but not yet reopened.
+
+**Round 4 (this one) actually reopened the file and found two more real, previously-undetected
+bugs**, both now fixed and confirmed by re-render:
+1. **Chart Y-fields bound as raw, unaggregated `Column` references rendered as completely empty
+   plot areas** — no bars, no gridlines, no category ticks, with no error or warning shown
+   anywhere in the UI. Confirmed live: switching the broken chart to a different visual type made
+   Desktop auto-insert an aggregation wrapper and the chart immediately rendered; explicitly
+   setting the aggregation back through Format → Y-axis field → Average on the original
+   `clusteredColumnChart` and saving captured Desktop's own correct JSON shape
+   (`field.Aggregation.Expression.Column` + `Function`, not a bare `field.Column`). All affected
+   charts now use either an existing DAX measure (preferred where one matched the field
+   semantically) or that same `Aggregation` wrapper.
+2. **Card visuals used `objects.dataPoint.defaultColor` for their accent color** (the same object
+   used on charts) — Desktop silently drops `dataPoint` from card visuals as invalid on load, so
+   "High-Risk Locations" and "Total Estimated Impact" rendered in plain theme-default text instead
+   of red. Confirmed correct via Desktop's own save after setting the color through Format →
+   Callout value → Color: cards use `objects.labels[0].properties.color`, not `dataPoint`.
 
 ## Data connectivity
 

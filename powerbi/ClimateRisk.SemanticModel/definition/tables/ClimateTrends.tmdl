@@ -1,59 +1,6 @@
 table ClimateTrends
 	lineageTag: 3cd94153-7d0e-4554-a7d5-6cb6b7c4b132
 
-	column location_id
-		dataType: string
-		lineageTag: ec6777c0-6fdf-4e8d-be49-f1c1c552752a
-		summarizeBy: none
-		sourceColumn: location_id
-
-		annotation SummarizationSetBy = Automatic
-
-	column month
-		dataType: dateTime
-		lineageTag: 6e146767-1b3b-44fa-bfc5-f8679e0d1c48
-		summarizeBy: none
-		formatString: yyyy-MM
-		sourceColumn: month
-
-		annotation SummarizationSetBy = Automatic
-
-	column avg_temp_max_c
-		dataType: double
-		lineageTag: ad557785-4283-4e32-867f-b65b364199e3
-		summarizeBy: none
-		formatString: 0.0
-		sourceColumn: avg_temp_max_c
-
-		annotation SummarizationSetBy = Automatic
-
-	column avg_temp_min_c
-		dataType: double
-		lineageTag: 63dafaae-d2f2-4336-9b1f-c8562bdefae4
-		summarizeBy: none
-		formatString: 0.0
-		sourceColumn: avg_temp_min_c
-
-		annotation SummarizationSetBy = Automatic
-
-	column total_precipitation_mm
-		dataType: double
-		lineageTag: b8380f4e-cb25-49ce-a60c-0c3ed24f286f
-		summarizeBy: none
-		formatString: 0.0
-		sourceColumn: total_precipitation_mm
-
-		annotation SummarizationSetBy = Automatic
-
-	column max_windspeed_kmh
-		dataType: double
-		lineageTag: db509889-0583-4f49-b7a1-9407fad1942c
-		summarizeBy: none
-		formatString: 0.0
-		sourceColumn: max_windspeed_kmh
-
-		annotation SummarizationSetBy = Automatic
-
 	measure 'Avg Temp Max (C)' = AVERAGE(ClimateTrends[avg_temp_max_c])
 		formatString: 0.0
 		lineageTag: 5a6b215d-6ca8-4f47-a4d8-4c06fcd5b792
@@ -70,6 +17,61 @@ table ClimateTrends
 		formatString: 0.0
 		lineageTag: c18a8d4e-5284-4c67-8e38-1acb4e09f9a0
 
+	column location_id
+		dataType: string
+		lineageTag: ec6777c0-6fdf-4e8d-be49-f1c1c552752a
+		summarizeBy: none
+		sourceColumn: location_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: dateTime
+		formatString: yyyy-MM
+		lineageTag: 6e146767-1b3b-44fa-bfc5-f8679e0d1c48
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column avg_temp_max_c
+		dataType: double
+		formatString: 0.0
+		lineageTag: ad557785-4283-4e32-867f-b65b364199e3
+		summarizeBy: none
+		sourceColumn: avg_temp_max_c
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_temp_min_c
+		dataType: double
+		formatString: 0.0
+		lineageTag: 63dafaae-d2f2-4336-9b1f-c8562bdefae4
+		summarizeBy: none
+		sourceColumn: avg_temp_min_c
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_precipitation_mm
+		dataType: double
+		formatString: 0.0
+		lineageTag: b8380f4e-cb25-49ce-a60c-0c3ed24f286f
+		summarizeBy: none
+		sourceColumn: total_precipitation_mm
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_windspeed_kmh
+		dataType: double
+		formatString: 0.0
+		lineageTag: db509889-0583-4f49-b7a1-9407fad1942c
+		summarizeBy: none
+		sourceColumn: max_windspeed_kmh
+
+		annotation SummarizationSetBy = Automatic
+
 	partition ClimateTrends = m
 		mode: import
 		source =
@@ -80,3 +82,4 @@ table ClimateTrends
 					climate_risk_powerbi_trends
 
 	annotation PBI_ResultType = Table
+

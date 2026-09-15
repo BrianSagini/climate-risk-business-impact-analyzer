@@ -5,8 +5,8 @@
     "x": 500,
     "y": 120,
     "z": 0,
-    "width": 220,
     "height": 120,
+    "width": 220,
     "tabOrder": 0
   },
   "visual": {
@@ -33,6 +33,25 @@
         }
       }
     },
+    "objects": {
+      "labels": [
+        {
+          "properties": {
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#C0392B'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "visualContainerObjects": {
       "title": [
         {
@@ -54,25 +73,24 @@
           }
         }
       ]
-    },
-    "objects": {
-      "dataPoint": [
-        {
-          "properties": {
-            "defaultColor": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#C0392B'"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "616ec4ad265b651b8d55",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Locations"
+              }
+            },
+            "Property": "High Risk Location Count"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

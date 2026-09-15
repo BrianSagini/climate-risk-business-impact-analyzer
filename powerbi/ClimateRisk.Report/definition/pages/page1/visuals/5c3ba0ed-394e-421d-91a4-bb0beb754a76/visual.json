@@ -36,31 +36,31 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "ClimateTrends"
                     }
                   },
-                  "Property": "avg_temp_max_c"
+                  "Property": "Avg Temp Max (C)"
                 }
               },
-              "queryRef": "ClimateTrends.avg_temp_max_c",
-              "nativeQueryRef": "avg_temp_max_c"
+              "queryRef": "ClimateTrends.Avg Temp Max (C)",
+              "nativeQueryRef": "Avg Temp Max (C)"
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "ClimateTrends"
                     }
                   },
-                  "Property": "avg_temp_min_c"
+                  "Property": "Avg Temp Min (C)"
                 }
               },
-              "queryRef": "ClimateTrends.avg_temp_min_c",
-              "nativeQueryRef": "avg_temp_min_c"
+              "queryRef": "ClimateTrends.Avg Temp Min (C)",
+              "nativeQueryRef": "Avg Temp Min (C)"
             }
           ]
         }

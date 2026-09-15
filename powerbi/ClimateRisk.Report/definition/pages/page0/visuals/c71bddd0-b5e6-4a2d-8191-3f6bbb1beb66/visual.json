@@ -5,8 +5,8 @@
     "x": 740,
     "y": 120,
     "z": 0,
-    "width": 220,
     "height": 120,
+    "width": 220,
     "tabOrder": 0
   },
   "visual": {
@@ -56,10 +56,10 @@
       ]
     },
     "objects": {
-      "dataPoint": [
+      "labels": [
         {
           "properties": {
-            "defaultColor": {
+            "color": {
               "solid": {
                 "color": {
                   "expr": {

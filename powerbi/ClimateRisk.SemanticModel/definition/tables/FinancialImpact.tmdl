@@ -1,6 +1,10 @@
 table FinancialImpact
 	lineageTag: a870fe57-550d-48c8-8ec5-9ddf455cfbe9
 
+	measure 'Total Estimated Impact' = SUM(FinancialImpact[estimated_impact_usd])
+		formatString: "$"#,0
+		lineageTag: d707c024-a3c4-4e8c-8657-e88b4d9483ff
+
 	column location_id
 		dataType: string
 		lineageTag: d7a6ba5b-789e-4d69-9871-b3d9e9804fb6
@@ -27,9 +31,9 @@ table FinancialImpact
 
 	column year
 		dataType: int64
+		formatString: 0
 		lineageTag: f055f1ce-3060-45ac-a17b-ca7708fb6b65
 		summarizeBy: none
-		formatString: 0
 		sourceColumn: year
 
 		annotation SummarizationSetBy = Automatic
@@ -43,26 +47,22 @@ table FinancialImpact
 		annotation SummarizationSetBy = Automatic
 
 	column estimated_impact_usd
-		dataType: decimal
-		lineageTag: df8771b0-e766-4fae-9c21-f3e7288e3b0e
-		summarizeBy: none
+		dataType: double
 		formatString: "$"#,0
+		lineageTag: df8771b0-e766-4fae-9c21-f3e7288e3b0e
+		summarizeBy: sum
 		sourceColumn: estimated_impact_usd
 
 		annotation SummarizationSetBy = Automatic
 
 	column pct_of_asset_value
 		dataType: double
+		formatString: 0.0000
 		lineageTag: 2e47a430-31fa-47c0-91b4-69b3c1f51122
 		summarizeBy: none
-		formatString: 0.0000
 		sourceColumn: pct_of_asset_value
 
 		annotation SummarizationSetBy = Automatic
-
-	measure 'Total Estimated Impact' = SUM(FinancialImpact[estimated_impact_usd])
-		formatString: "$"#,0
-		lineageTag: d707c024-a3c4-4e8c-8657-e88b4d9483ff
 
 	partition FinancialImpact = m
 		mode: import
@@ -74,3 +74,4 @@ table FinancialImpact
 					climate_risk_powerbi_financial_impact
 
 	annotation PBI_ResultType = Table
+

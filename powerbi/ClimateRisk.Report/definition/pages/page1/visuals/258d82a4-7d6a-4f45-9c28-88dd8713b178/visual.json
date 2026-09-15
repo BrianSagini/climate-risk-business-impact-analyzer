@@ -36,17 +36,17 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "ClimateTrends"
                     }
                   },
-                  "Property": "total_precipitation_mm"
+                  "Property": "Total Precipitation (mm)"
                 }
               },
-              "queryRef": "ClimateTrends.total_precipitation_mm",
-              "nativeQueryRef": "total_precipitation_mm"
+              "queryRef": "ClimateTrends.Total Precipitation (mm)",
+              "nativeQueryRef": "Total Precipitation (mm)"
             }
           ]
         }

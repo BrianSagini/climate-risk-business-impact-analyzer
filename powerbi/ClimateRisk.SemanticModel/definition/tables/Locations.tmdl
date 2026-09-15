@@ -1,6 +1,18 @@
 table Locations
 	lineageTag: fb165663-9c5a-4418-989b-52281dfe404e
 
+	measure 'Total Business Exposure' = SUM(Locations[asset_value_usd])
+		formatString: "$"#,0
+		lineageTag: 28b41c27-229c-4941-af30-9165a407ed3b
+
+	measure 'Avg Risk Score' = AVERAGE(Locations[latest_risk_score])
+		formatString: 0.0
+		lineageTag: dc04a02d-926c-416b-bcfa-353e97c5df08
+
+	measure 'High Risk Location Count' = COUNTROWS(FILTER(Locations, Locations[latest_risk_score] >= 60))
+		formatString: 0
+		lineageTag: 9c468100-3b5c-41a7-8d3d-b7ffa7c40015
+
 	column location_id
 		dataType: string
 		lineageTag: 0f8a0c5d-b8cf-4a5e-8324-84b456dc83db
@@ -42,19 +54,19 @@ table Locations
 		annotation SummarizationSetBy = Automatic
 
 	column annual_revenue_usd
-		dataType: decimal
-		lineageTag: 10e7e4ef-5f0a-4759-bdaa-cbb09146bce3
-		summarizeBy: none
+		dataType: double
 		formatString: "$"#,0
+		lineageTag: 10e7e4ef-5f0a-4759-bdaa-cbb09146bce3
+		summarizeBy: sum
 		sourceColumn: annual_revenue_usd
 
 		annotation SummarizationSetBy = Automatic
 
 	column asset_value_usd
-		dataType: decimal
-		lineageTag: 629955f5-6149-43ac-8f03-dc02d5a97098
-		summarizeBy: none
+		dataType: double
 		formatString: "$"#,0
+		lineageTag: 629955f5-6149-43ac-8f03-dc02d5a97098
+		summarizeBy: sum
 		sourceColumn: asset_value_usd
 
 		annotation SummarizationSetBy = Automatic
@@ -69,69 +81,57 @@ table Locations
 
 	column latest_year
 		dataType: int64
+		formatString: 0
 		lineageTag: ea3ada05-a949-49fa-88c2-685c29db8538
 		summarizeBy: none
-		formatString: 0
 		sourceColumn: latest_year
 
 		annotation SummarizationSetBy = Automatic
 
 	column latest_risk_score
 		dataType: double
+		formatString: 0.0
 		lineageTag: 927b2d8a-1908-45fd-8494-c92bba345271
 		summarizeBy: none
-		formatString: 0.0
 		sourceColumn: latest_risk_score
 
 		annotation SummarizationSetBy = Automatic
 
 	column extreme_heat_days
 		dataType: int64
+		formatString: 0
 		lineageTag: 6e19b491-5db3-463c-b0a7-b6f9df2f078d
 		summarizeBy: none
-		formatString: 0
 		sourceColumn: extreme_heat_days
 
 		annotation SummarizationSetBy = Automatic
 
 	column heavy_precip_days
 		dataType: int64
+		formatString: 0
 		lineageTag: b116b253-da88-4c03-8b00-e062c1768847
 		summarizeBy: none
-		formatString: 0
 		sourceColumn: heavy_precip_days
 
 		annotation SummarizationSetBy = Automatic
 
 	column temp_anomaly_c
 		dataType: double
+		formatString: 0.0
 		lineageTag: 8b54c6e5-3f86-4731-b0f4-2b208d7a26ec
 		summarizeBy: none
-		formatString: 0.0
 		sourceColumn: temp_anomaly_c
 
 		annotation SummarizationSetBy = Automatic
 
 	column moderate_scenario_impact_usd
-		dataType: decimal
-		lineageTag: 0ab94539-0719-4f65-9b44-f305a055bac6
-		summarizeBy: none
+		dataType: double
 		formatString: "$"#,0
+		lineageTag: 0ab94539-0719-4f65-9b44-f305a055bac6
+		summarizeBy: sum
 		sourceColumn: moderate_scenario_impact_usd
 
 		annotation SummarizationSetBy = Automatic
-
-	measure 'Total Business Exposure' = SUM(Locations[asset_value_usd])
-		formatString: "$"#,0
-		lineageTag: 28b41c27-229c-4941-af30-9165a407ed3b
-
-	measure 'Avg Risk Score' = AVERAGE(Locations[latest_risk_score])
-		formatString: 0.0
-		lineageTag: dc04a02d-926c-416b-bcfa-353e97c5df08
-
-	measure 'High Risk Location Count' = COUNTROWS(FILTER(Locations, Locations[latest_risk_score] >= 60))
-		formatString: 0
-		lineageTag: 9c468100-3b5c-41a7-8d3d-b7ffa7c40015
 
 	partition Locations = m
 		mode: import
@@ -143,3 +143,4 @@ table Locations
 					climate_risk_powerbi_summary
 
 	annotation PBI_ResultType = Table
+

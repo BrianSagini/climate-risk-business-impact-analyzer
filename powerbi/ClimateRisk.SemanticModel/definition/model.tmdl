@@ -10,8 +10,11 @@ annotation PBI_QueryOrder = ["Locations", "ClimateTrends", "FinancialImpact"]
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
+annotation PBI_ProTooling = ["DevMode"]
+
 ref table Locations
 ref table ClimateTrends
 ref table FinancialImpact
 
 ref cultureInfo en-US
+

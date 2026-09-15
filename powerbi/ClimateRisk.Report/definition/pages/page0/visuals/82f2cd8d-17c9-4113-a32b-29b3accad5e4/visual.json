@@ -5,8 +5,8 @@
     "x": 20,
     "y": 260,
     "z": 0,
-    "width": 1240,
     "height": 420,
+    "width": 1240,
     "tabOrder": 0
   },
   "visual": {
@@ -36,20 +36,48 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Aggregation": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "Locations"
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Locations"
+                        }
+                      },
+                      "Property": "latest_risk_score"
                     }
                   },
-                  "Property": "latest_risk_score"
+                  "Function": 1
                 }
               },
               "queryRef": "Locations.latest_risk_score",
-              "nativeQueryRef": "latest_risk_score"
+              "nativeQueryRef": "Average of latest_risk_score"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Locations"
+                      }
+                    },
+                    "Property": "latest_risk_score"
+                  }
+                },
+                "Function": 1
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {
@@ -119,5 +147,42 @@
         }
       ]
     }
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "fbdd24310ea57196e153",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Locations"
+              }
+            },
+            "Property": "name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "a46bc15300e9b9c5dc29",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Locations"
+                  }
+                },
+                "Property": "latest_risk_score"
+              }
+            },
+            "Function": 1
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

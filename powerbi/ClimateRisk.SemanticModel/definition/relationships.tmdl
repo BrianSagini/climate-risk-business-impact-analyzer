@@ -5,3 +5,4 @@ relationship 84813397-2a0b-44a4-9dfb-594a330110cd
 relationship af32729b-e4a8-4033-b6bb-fefd1d391b6f
 	fromColumn: FinancialImpact.location_id
 	toColumn: Locations.location_id
+

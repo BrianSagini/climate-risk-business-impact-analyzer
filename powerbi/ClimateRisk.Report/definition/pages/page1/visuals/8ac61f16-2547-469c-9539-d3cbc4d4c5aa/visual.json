@@ -5,8 +5,8 @@
     "x": 1040,
     "y": 120,
     "z": 0,
-    "width": 220,
     "height": 560,
+    "width": 220,
     "tabOrder": 0
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "Locations.name",
-              "nativeQueryRef": "name"
+              "nativeQueryRef": "name",
+              "active": true
             }
           ]
         }

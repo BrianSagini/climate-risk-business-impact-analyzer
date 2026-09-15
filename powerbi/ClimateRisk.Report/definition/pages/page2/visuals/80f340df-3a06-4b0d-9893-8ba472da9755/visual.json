@@ -36,17 +36,17 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "FinancialImpact"
                     }
                   },
-                  "Property": "estimated_impact_usd"
+                  "Property": "Total Estimated Impact"
                 }
               },
-              "queryRef": "FinancialImpact.estimated_impact_usd",
-              "nativeQueryRef": "estimated_impact_usd"
+              "queryRef": "FinancialImpact.Total Estimated Impact",
+              "nativeQueryRef": "Total Estimated Impact"
             }
           ]
         }

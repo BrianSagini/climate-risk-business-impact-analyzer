@@ -36,17 +36,22 @@
           "projections": [
             {
               "field": {
-                "Column": {
+                "Aggregation": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "Locations"
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Locations"
+                        }
+                      },
+                      "Property": "extreme_heat_days"
                     }
                   },
-                  "Property": "extreme_heat_days"
+                  "Function": 0
                 }
               },
               "queryRef": "Locations.extreme_heat_days",
-              "nativeQueryRef": "extreme_heat_days"
+              "nativeQueryRef": "Sum of extreme_heat_days"
             }
           ]
         }
