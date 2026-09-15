@@ -1,0 +1,76 @@
+table FinancialImpact
+	lineageTag: 796461dd-3a56-4426-92a3-8db26628e886
+
+	column location_id
+		dataType: string
+		lineageTag: 31a6f23b-fcea-43d8-a2a2-7aed495c10eb
+		summarizeBy: none
+		sourceColumn: location_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: f5482d90-b6c9-4dcf-9707-7cd90d4fa2ac
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column industry
+		dataType: string
+		lineageTag: b3c25b58-4ff3-475a-8a7c-01762096bbd4
+		summarizeBy: none
+		sourceColumn: industry
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		lineageTag: 0379d73e-70e4-44d8-a210-d4eef491f481
+		summarizeBy: none
+		formatString: 0
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column scenario
+		dataType: string
+		lineageTag: 537ade77-f940-488d-973f-097b2ddec1e6
+		summarizeBy: none
+		sourceColumn: scenario
+
+		annotation SummarizationSetBy = Automatic
+
+	column estimated_impact_usd
+		dataType: decimal
+		lineageTag: c9369a6c-3007-40c4-bfbe-ece0782e6008
+		summarizeBy: none
+		formatString: "\$"#,0
+		sourceColumn: estimated_impact_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column pct_of_asset_value
+		dataType: double
+		lineageTag: edd9dae3-0fa5-4b6f-a8b0-454f80c67be9
+		summarizeBy: none
+		formatString: 0.0000
+		sourceColumn: pct_of_asset_value
+
+		annotation SummarizationSetBy = Automatic
+
+	measure 'Total Estimated Impact' = SUM(FinancialImpact[estimated_impact_usd])
+		formatString: "\$"#,0
+		lineageTag: 9bc251b8-04d0-4b7e-a7ca-40a760ed3d04
+
+	partition FinancialImpact = m
+		mode: import
+		source =
+				let
+					Source = PostgreSQL.Database("localhost:5433", "analytics"),
+					climate_risk_powerbi_financial_impact = Source{[Schema="climate_risk",Item="powerbi_financial_impact"]}[Data]
+				in
+					climate_risk_powerbi_financial_impact
+
+	annotation PBI_ResultType = Table

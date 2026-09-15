@@ -1,0 +1,82 @@
+table ClimateTrends
+	lineageTag: 46e49827-35ce-4040-bac2-78683f4c8020
+
+	column location_id
+		dataType: string
+		lineageTag: e75d0a11-67fe-4d87-8093-4a16923c8477
+		summarizeBy: none
+		sourceColumn: location_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: dateTime
+		lineageTag: cc01147e-569b-48b7-82cf-8c0328a2ced3
+		summarizeBy: none
+		formatString: yyyy-mm
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_temp_max_c
+		dataType: double
+		lineageTag: deffc21a-d0e8-457c-82f5-6dbfe4cca193
+		summarizeBy: none
+		formatString: 0.0
+		sourceColumn: avg_temp_max_c
+
+		annotation SummarizationSetBy = Automatic
+
+	column avg_temp_min_c
+		dataType: double
+		lineageTag: 2bc041d5-eef6-44a1-8b7c-24b88cc6f1a1
+		summarizeBy: none
+		formatString: 0.0
+		sourceColumn: avg_temp_min_c
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_precipitation_mm
+		dataType: double
+		lineageTag: abd0ed43-8cd0-4da4-b139-1b71d5596101
+		summarizeBy: none
+		formatString: 0.0
+		sourceColumn: total_precipitation_mm
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_windspeed_kmh
+		dataType: double
+		lineageTag: 4f98bc3f-d731-47be-9a8f-bcc43083b7a2
+		summarizeBy: none
+		formatString: 0.0
+		sourceColumn: max_windspeed_kmh
+
+		annotation SummarizationSetBy = Automatic
+
+	measure 'Avg Temp Max (C)' = AVERAGE(ClimateTrends[avg_temp_max_c])
+		formatString: 0.0
+		lineageTag: c1bd5b28-7b2c-4e9b-96f4-b589a6f0f5fd
+
+	measure 'Avg Temp Min (C)' = AVERAGE(ClimateTrends[avg_temp_min_c])
+		formatString: 0.0
+		lineageTag: 86005c0f-506e-4b0c-b01e-8d6cc4076047
+
+	measure 'Total Precipitation (mm)' = SUM(ClimateTrends[total_precipitation_mm])
+		formatString: 0.0
+		lineageTag: 3bae9a66-6511-47b2-bfd6-728e3742ed39
+
+	measure 'Avg Wind Speed (km/h)' = AVERAGE(ClimateTrends[max_windspeed_kmh])
+		formatString: 0.0
+		lineageTag: 3bfd57f9-ad36-4729-8392-bf3f6f643a84
+
+	partition ClimateTrends = m
+		mode: import
+		source =
+				let
+					Source = PostgreSQL.Database("localhost:5433", "analytics"),
+					climate_risk_powerbi_trends = Source{[Schema="climate_risk",Item="powerbi_trends"]}[Data]
+				in
+					climate_risk_powerbi_trends
+
+	annotation PBI_ResultType = Table

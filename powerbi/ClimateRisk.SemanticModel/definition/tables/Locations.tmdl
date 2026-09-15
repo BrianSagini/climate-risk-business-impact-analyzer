@@ -1,0 +1,145 @@
+table Locations
+	lineageTag: 35453df8-ce42-4c31-9792-84dbfa5cdb18
+
+	column location_id
+		dataType: string
+		lineageTag: 6e971b86-d9aa-4d02-93fd-b433b7e32b2b
+		summarizeBy: none
+		sourceColumn: location_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		lineageTag: 16c838af-3969-4d4c-a292-f59d917980b3
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column lat
+		dataType: double
+		lineageTag: 9e9df466-8c78-4805-b6dd-0fa3858db8ae
+		summarizeBy: none
+		sourceColumn: lat
+
+		annotation SummarizationSetBy = Automatic
+
+	column lon
+		dataType: double
+		lineageTag: 9056ca91-966f-48b8-bfd2-fde4404940df
+		summarizeBy: none
+		sourceColumn: lon
+
+		annotation SummarizationSetBy = Automatic
+
+	column industry
+		dataType: string
+		lineageTag: dd4071b3-c6a6-406b-adc9-4892d1f6557d
+		summarizeBy: none
+		sourceColumn: industry
+
+		annotation SummarizationSetBy = Automatic
+
+	column annual_revenue_usd
+		dataType: decimal
+		lineageTag: 5e14114f-b5ae-407b-b2fb-70d2ecb02388
+		summarizeBy: none
+		formatString: "\$"#,0
+		sourceColumn: annual_revenue_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column asset_value_usd
+		dataType: decimal
+		lineageTag: 8fb91948-8060-4c37-aca2-67dc2e852113
+		summarizeBy: none
+		formatString: "\$"#,0
+		sourceColumn: asset_value_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_synthetic_business_data
+		dataType: boolean
+		lineageTag: cc5171a5-6f42-4577-be6f-02a36bd6e38c
+		summarizeBy: none
+		sourceColumn: is_synthetic_business_data
+
+		annotation SummarizationSetBy = Automatic
+
+	column latest_year
+		dataType: int64
+		lineageTag: 988ee019-8b0f-42c3-a09c-77e8e315caca
+		summarizeBy: none
+		formatString: 0
+		sourceColumn: latest_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column latest_risk_score
+		dataType: double
+		lineageTag: e0797988-b8d3-4135-97bf-8fc60e6b796b
+		summarizeBy: none
+		formatString: 0.0
+		sourceColumn: latest_risk_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column extreme_heat_days
+		dataType: int64
+		lineageTag: b12baf99-c841-4661-bb6b-5ec7816f688e
+		summarizeBy: none
+		formatString: 0
+		sourceColumn: extreme_heat_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column heavy_precip_days
+		dataType: int64
+		lineageTag: 5d370e09-69bb-461f-b2a3-7d959a2b7570
+		summarizeBy: none
+		formatString: 0
+		sourceColumn: heavy_precip_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column temp_anomaly_c
+		dataType: double
+		lineageTag: 0803a11a-b699-4671-9ac8-df58d09c264b
+		summarizeBy: none
+		formatString: 0.0
+		sourceColumn: temp_anomaly_c
+
+		annotation SummarizationSetBy = Automatic
+
+	column moderate_scenario_impact_usd
+		dataType: decimal
+		lineageTag: 4f2b89c9-ac39-4550-b966-01581d3d7e35
+		summarizeBy: none
+		formatString: "\$"#,0
+		sourceColumn: moderate_scenario_impact_usd
+
+		annotation SummarizationSetBy = Automatic
+
+	measure 'Total Business Exposure' = SUM(Locations[asset_value_usd])
+		formatString: "\$"#,0
+		lineageTag: 02be534e-9a89-4af8-8f73-5f6a9acc4043
+
+	measure 'Avg Risk Score' = AVERAGE(Locations[latest_risk_score])
+		formatString: 0.0
+		lineageTag: 33f92913-05be-4d5c-aaed-11d42a24c706
+
+	measure 'High Risk Location Count' = COUNTROWS(FILTER(Locations, Locations[latest_risk_score] >= 60))
+		formatString: 0
+		lineageTag: 5e47bc33-dcef-4679-8145-caf4e4002388
+
+	partition Locations = m
+		mode: import
+		source =
+				let
+					Source = PostgreSQL.Database("localhost:5433", "analytics"),
+					climate_risk_powerbi_summary = Source{[Schema="climate_risk",Item="powerbi_summary"]}[Data]
+				in
+					climate_risk_powerbi_summary
+
+	annotation PBI_ResultType = Table

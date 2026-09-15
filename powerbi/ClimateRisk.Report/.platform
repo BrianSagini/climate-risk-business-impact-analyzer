@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "ClimateRisk"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1a220448-3133-46b5-8bba-607bf4ebef38"
+  }
+}

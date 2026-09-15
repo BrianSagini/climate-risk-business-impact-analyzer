@@ -1,0 +1,7 @@
+relationship 2c033bab-ff60-4c5c-a665-3e5f6c29cf4d
+	fromColumn: ClimateTrends.location_id
+	toColumn: Locations.location_id
+
+relationship b0e75178-d77a-4a8a-ad99-00ee2386bff1
+	fromColumn: FinancialImpact.location_id
+	toColumn: Locations.location_id
