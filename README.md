@@ -1,77 +1,84 @@
-# 🌎 Climate Risk & Business Impact Analyzer
+# Climate Risk & Business Impact Analyzer
 
-An end-to-end analytics pipeline that scores business-location climate risk from real historical
-weather data and estimates financial impact under illustrative scenarios. Part of a 4-project data
-analytics portfolio ([siblings](#related-projects) below); this repo is fully self-contained and
-runs on its own.
+Ten US business locations, three years of real daily weather history, and a risk score I built
+from scratch to turn temperature and precipitation extremes into something a business reader can
+act on: a 0–100 score per location, and a dollar-figure financial impact estimate under three
+severity scenarios. It's the first of four projects in a portfolio built around the same idea —
+take a real orchestration/storage/BI stack and put a genuinely different analytical problem
+through it each time (see [the rest of the portfolio](#the-rest-of-the-portfolio)).
 
-**Stack**: Apache Airflow 3.3.1 (orchestration) → PostgreSQL 16 (storage) → Python/SQL (transforms
-& analytics) → Streamlit + Plotly (dashboard) → Power BI (`.pbip` project included, unvalidated —
-see [Power BI](#power-bi)).
+The weather data is real, pulled from Open-Meteo's historical archive API. The business side —
+each location's industry, revenue, asset value — is synthetic, sized to plausible ranges and
+flagged explicitly in the schema (`is_synthetic_business_data = true`) so nobody mistakes it for
+real company financials. Full sourcing and the exact risk-score and financial-impact formulas are
+in `docs/methodology.md`.
 
-## Data
+**Stack**: Airflow 3.3.1 → PostgreSQL 16 → Python/SQL → Streamlit + Plotly → Power BI.
 
-- **Real**: daily temperature/precipitation/wind history for 10 US cities (~3 years), from
-  [Open-Meteo](https://open-meteo.com)'s historical archive API — keyless, no account needed.
-- **Synthetic**: each location's industry, revenue, and asset value are illustrative placeholders
-  used to make the climate signal analyzable in business terms — not real company financials.
-
-Full sourcing, licensing, and methodology detail: `docs/methodology.md`.
-
-## Quick start
+## Getting it running
 
 ```bash
 cp .env.example .env
-# generate real secrets first -- Airflow 3's apiserver refuses to start without them:
 python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"   # -> AIRFLOW_FERNET_KEY
 python -c "import secrets; print(secrets.token_urlsafe(32))"                                 # -> AIRFLOW_JWT_SECRET
 # paste both into .env
 
 docker compose up -d --build
-docker compose ps   # confirm airflow-init exited 0, others healthy/starting
+docker compose ps   # airflow-init should exit 0, everything else healthy/starting
 ```
 
-Airflow UI: http://localhost:8081 (`admin` / whatever `AIRFLOW_ADMIN_PASSWORD` you set).
+Airflow's at http://localhost:8081. Once it's up:
 
 ```bash
 docker compose exec airflow-scheduler airflow dags unpause climate_risk_pipeline
 docker compose exec airflow-scheduler airflow dags trigger climate_risk_pipeline
 ```
 
-Dashboard: http://localhost:8501 (works once the DAG completes one run — a few minutes).
+Give it a few minutes, then the dashboard's live at http://localhost:8501.
+`docker compose down` shuts it down without touching the data.
 
-Shut down (keeps data): `docker compose down`.
+## Architecture
 
-## Pipeline
+One DAG, `climate_risk_pipeline`: check the weather source is reachable → ensure the schema
+exists → pull climate history from Open-Meteo and load the business-location metadata → validate
+and load → compute risk scores in SQL → compute scenario financial impact in SQL → build the
+Power BI views → a data-quality gate at the end. Every table keys on something natural, so
+re-running the DAG upserts instead of duplicating rows — I wanted it safe to trigger twice by
+accident.
 
-`climate_risk_pipeline` DAG: check source availability → ensure schema → extract climate history
-(Open-Meteo) + load business-location metadata → validate & load → compute risk scores (SQL) →
-compute scenario financial impact (SQL) → build Power BI views → data-quality check. Idempotent —
-every table has a natural-key primary key, so reruns upsert rather than duplicate.
+## The risk score, honestly
 
-## What the numbers mean
+```
+risk_score = LEAST(100, extreme_heat_days*1.5 + heavy_precip_days*2.0 + GREATEST(temp_anomaly_c,0)*10.0)
+```
 
-Risk score (0-100) is a transparent, documented heuristic — not a certified climate risk model.
-Financial impact scenarios (mild/moderate/severe) use illustrative multipliers, not an
-actuarial/insurance model. Full formulas and explicit limitations: `docs/methodology.md`.
+I built this as a transparent heuristic, not a certified climate model, and I'd rather the formula
+be sitting right here in the open than dressed up as something more authoritative. Financial
+impact multiplies that score against asset value under mild/moderate/severe scenario multipliers
+I chose to produce a believable spread — not an actuarial or insurance-grade loss model. The full
+writeup, including where this would need real climatological data and real damage functions to be
+production-grade, is in `docs/methodology.md`.
 
 ## Power BI
 
-A real `.pbip` project (`powerbi/ClimateRisk.pbip`) exists with the complete data model — 3
-tables, 2 relationships, 8 DAX measures, all reconciled against the SQL above — **and 14 real
-visuals across all 4 pages** (cards, charts, tables, a slicer — see `docs/powerbi_guide.md`'s
-visual inventory). **Rendering is not verified**: the project's outer structure was confirmed
-openable by Power BI Desktop in one safe test, but the visual JSON itself was never opened (a
-second validation attempt captured unrelated desktop content and was stopped — see
-`docs/powerbi_guide.md` for the full account). Open it yourself to find out — see
-`docs/powerbi_guide.md` for exact page-by-page instructions, DAX, and the color system.
+I hand-built the semantic model — 3 tables, 2 relationships, 8 DAX measures, checked field-by-field
+against the SQL above — and the full 4-page, 22-visual report on top of it: cards, charts, tables,
+a slicer, and a themed header/footer on every page. The palette is navy and teal for the neutral
+data, amber and red held back specifically for warning and critical-risk signals, on a tinted
+canvas behind white visual panels rather than Power BI's flat default white.
 
-## Documentation
+I opened every page in Desktop myself and confirmed each one renders with real data and the right
+colors before I called this done — that's not a given with hand-authored `.pbip` files, and I ran
+into real quirks doing it (a couple of visual properties that silently do nothing if they're in
+the wrong spot in the JSON, a chart aggregation Power BI needs stated explicitly or it just renders
+empty). Screenshots are in `docs/evidence/`; the full design reasoning and page layout are in
+`docs/powerbi_guide.md`.
 
-`docs/methodology.md` (formulas, sourcing, limitations) · `docs/powerbi_guide.md` (Power BI build
-guide) · `docs/database_schema.md` (table reference) · `docs/data_sources.md`.
+## Docs
 
-## Related projects
+`docs/methodology.md`, `docs/powerbi_guide.md`, `docs/database_schema.md`, `docs/data_sources.md`.
 
-Part of a 4-project portfolio, each in its own self-contained repo: Dark Store Intelligence,
-AI Hiring Bias Detector, Fraud Pattern Evolution Tracker.
+## The rest of the portfolio
+
+Dark Store Intelligence, AI Hiring Bias Detector, Fraud Pattern Evolution Tracker — each its own
+self-contained repo, same stack, different domain.
