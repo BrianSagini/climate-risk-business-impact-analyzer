@@ -36,7 +36,9 @@ docker compose exec airflow-scheduler airflow dags trigger climate_risk_pipeline
 
 Live public dashboard: https://climate-risk-business-impact.streamlit.app/ (reads from a shared
 cloud database, not this local stack). Give it a few minutes and your own local run's dashboard is
-at http://localhost:8501. `docker compose down` shuts it down without touching the data.
+at http://localhost:8501. Live H2O AutoML results: https://climate-risk-automl.streamlit.app/
+(also reads from the shared cloud database). `docker compose down` shuts it down without touching
+the data.
 
 The AutoML sanity-check cells at the end of `climate_risk_model.ipynb` are optional and
 local-only — they're not part of the Airflow DAG or the container image. Running them needs
