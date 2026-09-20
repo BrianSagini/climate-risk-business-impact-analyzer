@@ -76,7 +76,7 @@ table ClimateTrends
 		mode: import
 		source =
 				let
-					Source = PostgreSQL.Database("localhost:5433", "analytics"),
+					Source = PostgreSQL.Database("localhost:5444", "analytics"),
 					climate_risk_powerbi_trends = Source{[Schema="climate_risk",Item="powerbi_trends"]}[Data]
 				in
 					climate_risk_powerbi_trends

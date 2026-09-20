@@ -137,7 +137,7 @@ table Locations
 		mode: import
 		source =
 				let
-					Source = PostgreSQL.Database("localhost:5433", "analytics"),
+					Source = PostgreSQL.Database("localhost:5444", "analytics"),
 					climate_risk_powerbi_summary = Source{[Schema="climate_risk",Item="powerbi_summary"]}[Data]
 				in
 					climate_risk_powerbi_summary
