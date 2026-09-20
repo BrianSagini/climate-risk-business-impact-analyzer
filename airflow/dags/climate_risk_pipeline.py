@@ -1,7 +1,8 @@
 """Climate Risk & Business Impact Analyzer -- Airflow DAG.
 
 extract (Open-Meteo, keyless) -> validate -> load -> SQL risk scoring ->
-SQL scenario financial impact -> data-quality check.
+SQL scenario financial impact -> monthly risk-model training (XGBoost vs.
+the existing annual formula, time-based split) -> data-quality check.
 
 Business exposure data (industry/revenue/asset value) is synthetic --
 see projects/01_climate_risk_business_impact/pipeline.py and
@@ -86,7 +87,11 @@ with DAG(
         return pipeline.compute_and_load_financial_impact()
 
     @task
-    def create_powerbi_views(_impact_rows: int) -> None:
+    def train_risk_model(_impact_rows: int) -> dict:
+        return pipeline.train_risk_model()
+
+    @task
+    def create_powerbi_views(_model_result: dict) -> None:
         from shared.database import run_sql_file
         run_sql_file(os.path.join(os.path.dirname(pipeline.__file__), "sql", "004_powerbi_views.sql"))
 
@@ -100,6 +105,9 @@ with DAG(
             latest_date = conn.exec_driver_sql(
                 "SELECT MAX(date) FROM climate_risk.daily_climate"
             ).scalar()
+            model_rows = conn.exec_driver_sql(
+                "SELECT model_name, r2 FROM climate_risk.model_evaluation"
+            ).all()
         if null_scores:
             raise ValueError(f"{null_scores} risk_scores rows have NULL risk_score")
         if latest_date is None:
@@ -108,6 +116,22 @@ with DAG(
         if staleness > 10:
             raise ValueError(f"daily_climate is stale: latest date is {latest_date} ({staleness} days old)")
 
+        required_models = {"xgboost_monthly_risk_model", "annual_formula_baseline"}
+        present = {name: r2 for name, r2 in model_rows}
+        missing = required_models - set(present)
+        if missing:
+            raise ValueError(f"climate_risk.model_evaluation is missing rows for: {sorted(missing)}")
+        for name, r2 in present.items():
+            if r2 is None:
+                raise ValueError(f"{name} has a NULL R2 in model_evaluation")
+            # R2 == 1.0 on real weather data would mean a target leaked
+            # directly into a feature, not a genuinely great model -- this
+            # is the same kind of implausibility check as Fraud's
+            # ROC-AUC >= 0.5 floor, just aimed at the opposite failure mode
+            # (a model that's suspiciously *too* good rather than useless).
+            if r2 >= 0.9999:
+                raise ValueError(f"{name} R2 is implausibly perfect ({r2}) -- looks like a leak, not a real result")
+
     src_ok = check_source_available()
     schema = ensure_schema()
     locs = load_locations()
@@ -115,7 +139,8 @@ with DAG(
     loaded = validate_and_load(raw_path)
     risk = compute_risk_scores(loaded)
     impact = compute_financial_impact(risk)
-    views = create_powerbi_views(impact)
+    model_result = train_risk_model(impact)
+    views = create_powerbi_views(model_result)
     dq = data_quality_check(views)
 
     src_ok >> schema
@@ -123,4 +148,4 @@ with DAG(
     schema >> raw_path
     locs >> loaded
     raw_path >> loaded
-    loaded >> risk >> impact >> dq
+    loaded >> risk >> impact >> model_result >> views >> dq
